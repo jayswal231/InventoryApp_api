@@ -3,12 +3,17 @@ from .models import *
 from .serializers import *
 from rest_framework import viewsets
 from rest_framework.response import Response
+
+from rest_framework.permissions import DjangoModelPermissions
 # Create your views here.
 
-class Product_category_viewset(viewsets.ModelViewSet):
-    queryset = Product_category.objects.all()
-    serializer_class = Product_category_serializer
+class ProductCategoryViewset(viewsets.ModelViewSet):
+    queryset = ProductCategory.objects.all()
+    serializer_class = ProductCategorySerializer
 
-class Product_viewset(viewsets.ModelViewSet):
+class ProductViewset(viewsets.ModelViewSet):
     queryset = Product.objects.all()
-    serializer_class = Product_serializer
+    serializer_class = ProductSerializer
+    permission_classes = [DjangoModelPermissions]
+
+    

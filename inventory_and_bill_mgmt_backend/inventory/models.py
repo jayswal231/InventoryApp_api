@@ -2,7 +2,7 @@ from django.db import models
 from user_accounts.models import CustomUser
 # Create your models here.
 
-class Product_category(models.Model):
+class ProductCategory(models.Model):
     name = models.CharField(max_length=50)
     descriptions = models.TextField(blank=True)
     image = models.ImageField(null=True, blank=True)
@@ -16,7 +16,7 @@ class Product(models.Model):
     quantity = models.IntegerField()
     rate = models.FloatField()
     value = models.FloatField()
-    product_category = models.ForeignKey(Product_category, on_delete=models.CASCADE)
+    product_category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.particular_name

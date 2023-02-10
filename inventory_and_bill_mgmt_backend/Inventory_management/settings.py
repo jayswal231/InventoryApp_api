@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'user_accounts',
     'inventory',
-    # library apps
+    'bill_management',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -152,9 +152,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
 
 

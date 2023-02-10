@@ -12,15 +12,12 @@ from .serializers import *
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import permission_required
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.permissions import IsAuthenticated,AllowAny,IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from django.contrib.auth import authenticate
-
-
 import json
-
-
+from rest_framework.permissions import DjangoModelPermissions
 
 
 def get_tokens_for_user(user):
@@ -35,7 +32,7 @@ class UserList(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     # authentication_classes = [JWTAuthentication]
-    # permission_classes = [AllowAny]
+   # permission_classes = [DjangoModelPermissions]
     
     def create(self, request):
         serializer = UserSerializer(data=request.data)
@@ -43,11 +40,13 @@ class UserList(viewsets.ModelViewSet):
         user = serializer.save()
         token = get_tokens_for_user(user)
         return Response({'token':token, 'msg':'Registration Successful'}, status=status.HTTP_201_CREATED)
-    
+
+
 class LoginViewSet(viewsets.ModelViewSet):
     
     queryset = CustomUser.objects.all()
     serializer_class = UserLoginSerializer
+    permission_classes=[AllowAny]
 
     
    
@@ -75,6 +74,7 @@ from django.db import IntegrityError
 class StaffCreatViewSet(viewsets.ModelViewSet):
     queryset = Staff.objects.all()
     serializer_class = StaffSerializer
+    permission_classes=[DjangoModelPermissions]
      
     # def create(self, request, *args, **kwargs):
     #     serializer=self.get_serializer(data=request.data)
@@ -98,13 +98,13 @@ class StaffCreatViewSet(viewsets.ModelViewSet):
         serializer.save()
         return Response(serializer.data)
 
-    def patch(self, request, pk):
-        instance = self.get_object(pk)
-        data= request.data
-        serializer = self.get_serializer(instance, data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+    # def patch(self, request, pk):
+    #     instance = self.get_object(pk)
+    #     data= request.data
+    #     serializer = self.get_serializer(instance, data, partial=True)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data)
 
 
     def delete(self, request, *args, **kwargs):

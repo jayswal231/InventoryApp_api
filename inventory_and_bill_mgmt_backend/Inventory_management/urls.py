@@ -32,6 +32,7 @@ urlpatterns = [
 
     path('users/',include('user_accounts.api_urls')),
     path('inventory/', include('inventory.urls')),
+    path('bill_management/', include('bill_management.urls')),
     path('api/', include(router.urls)),
 
 ]

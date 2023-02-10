@@ -2,17 +2,35 @@ from .models import *
 from rest_framework import serializers
 
 
-class TransactionCategory_Serializer(serializers.ModelSerializer):
+class TransactionCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = TransactionCategory
         fields = '__all__'
 
-class BillData_Serializer(serializers.ModelSerializer):
+   
+       
+    
+
+class TransactionTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TransactionType
+        fields = '__all__'
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = '__all__'
+
+class BillDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = BillData
         fields = '__all__'
 
-class MonthlySummary_Serializer(serializers.ModelSerializer):
+    
+
+class TransactionSummarySerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = MonthlySummary
-        fields = '__all__'
+        model = BillData
+        fields=[]
+
